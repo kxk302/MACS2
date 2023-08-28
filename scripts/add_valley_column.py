@@ -29,7 +29,7 @@ def add_valley_column(input_folder, output_folder):
     df_merged["valley_number_of_reads"] = df_merged["max_number_of_reads"] - df_merged["number_of_reads"]
     print(df_merged.head(20))
 
-    df_merged.to_csv(os.path.join(output_folder, file_name + "_valley.tsv"), sep="\t",
+    df_merged.to_csv(os.path.join(output_folder, file_name + "_valley.bed"), sep="\t",
                      columns=["chromosome", "start", "stop", "valley_number_of_reads"],
                      header=False, index=False)
 
