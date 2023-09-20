@@ -14,12 +14,11 @@ def add_valley_column(input_folder, output_folder):
     # Ignore any directories. We only process files in input_folder
     if not os.path.isfile(file_path):
       continue
+
     print(f"{file_path} is a file")
 
     df = pd.read_csv(file_path, sep="\t", names=["chromosome", "start", "stop", "number_of_reads"])
-    print(df.head(2))
 
-    # df["max_number_of_reads"] = df.groupby(["chromosome"])["number_of_reads"].max()
     df_max_number_of_read = pd.DataFrame(df.groupby(["chromosome"])["number_of_reads"].max())
     df_max_number_of_read.rename(columns={'number_of_reads': 'max_number_of_reads'}, inplace=True)
     
