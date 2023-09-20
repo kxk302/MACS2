@@ -5,7 +5,7 @@ import pathlib
 import pandas as pd
 
 
-def add_valley_column(input_folder, output_folder):
+def add_peak_column(input_folder, output_folder):
   files = os.listdir(input_folder)
   for file in files:
     file_path = os.path.join(input_folder, file)
@@ -25,11 +25,11 @@ def add_valley_column(input_folder, output_folder):
     print(df_max_number_of_read.head(20))
 
     df_merged = pd.merge(df, df_max_number_of_read, on="chromosome", how="inner")
-    df_merged["valley_number_of_reads"] = df_merged["max_number_of_reads"] - df_merged["number_of_reads"]
+    df_merged["peak_number_of_reads"] = df_merged["max_number_of_reads"] - df_merged["number_of_reads"]
     print(df_merged.head(20))
 
-    df_merged.to_csv(os.path.join(output_folder, file_name + "_valley.bed"), sep="\t",
-                     columns=["chromosome", "start", "stop", "valley_number_of_reads"],
+    df_merged.to_csv(os.path.join(output_folder, file_name + "_peak.bed"), sep="\t",
+                     columns=["chromosome", "start", "stop", "peak_number_of_reads"],
                      header=False, index=False)
 
 
@@ -42,4 +42,4 @@ if __name__ == "__main__":
 
   args = argParse.parse_args()
 
-  add_valley_column(args.input_folder, args.output_folder)
+  add_peak_column(args.input_folder, args.output_folder)
