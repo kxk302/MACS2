@@ -27,7 +27,10 @@ def summarize_peaks_intersect(peaks_folder, output_folder):
       df["length"] = df["stop"] - df["start"] + 1 
       non_b_dna_intersect_length = df["length"].sum()
 
-      non_b_dna_intersect_ratio = non_b_dna_intersect_length / peaks_length
+      if peaks_length != 0:
+        non_b_dna_intersect_ratio = non_b_dna_intersect_length / peaks_length
+      else:
+        non_b_dna_intersect_ratio = 0.00
       non_b_dna_intersect_ratio_list.append(non_b_dna_intersect_ratio)
       fp.write("\t".join([chromosome, str(peaks_length), str(non_b_dna_intersect_length), str(non_b_dna_intersect_ratio)]) + "\n")
 
@@ -45,7 +48,10 @@ def summarize_peaks_intersect(peaks_folder, output_folder):
       df["length"] = df["stop"] - df["start"] + 1 
       non_b_dna_intersect_length = df["length"].sum()
 
-      non_b_dna_intersect_ratio = non_b_dna_intersect_length / peaks_length
+      if peaks_length != 0:
+        non_b_dna_intersect_ratio = non_b_dna_intersect_length / peaks_length
+      else:
+        non_b_dna_intersect_ratio = 0.00
       non_b_dna_intersect_ratio_list.append(non_b_dna_intersect_ratio)
       fp.write("\t".join([chromosome, str(peaks_length), str(non_b_dna_intersect_length), str(non_b_dna_intersect_ratio)]) + "\n")
 

@@ -18,7 +18,7 @@ for folder in "20mM_A_S2_R1_001" "20mM_A_try25_S6_R1_001" "20mM_B_S3_R1_001" "40
 do
   for EXTSIZE in 25 35 50 75 100 150 200
   do
-    cd ${folder}/extsize_${EXTSIZE}
+    cd $folder/extsize_${EXTSIZE}/random
 
     for chromosome in {1..22}
     do
@@ -27,7 +27,7 @@ do
         bedtools intersect -a chr${chromosome}.bed -b ${NonBDNAFolder}/chr${chromosome}_all_merged.bed > chr${chromosome}_intersect.bed
         echo "bedtools intersect -a chr${chromosome}.bed -b ${NonBDNAFolder}/chr${chromosome}_all_merged.bed > chr${chromosome}_intersect.bed"
       fi
-   done
+    done
     for chromosome in "X" "Y"
     do
       if [ -f chr${chromosome}.bed ]
