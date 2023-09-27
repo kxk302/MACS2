@@ -46,33 +46,33 @@
 
    Must pass "extsize" input parameter needed by MACS2. For each .bed file, this generates a folder in
    ./output folder (e.g., for "20mM_A_S2_R1_001_BigWigs_as_Histogram_peak.bed" it creates a
-   "./output/20mM_A_S2_R1_001" folder). In each folder, 3 files are created. E.g., in
+   "./output/20mM_A_S2_R1_001/<EXTSIZE>" folder). In each folder, 3 files are created. E.g., in
    "./output/20mM_A_S2_R1_001/<EXTSIZE>" folder, the following files are created:
 
    20mM_A_S2_R1_001_peaks.xls: a tabular file which contains information about called peaks
    20mM_A_S2_R1_001_peaks.narrowPeak: contains the peak locations together with peak summit, p-value, and q-value
    20mM_A_S2_R1_001_summits.bed: contains the peak summits locations for every peak
 
-6. 20mM_A_S2_R1_001_peaks.xls file has summit information for all chromosomes. Save the summit
-   information for each chromosome by running the following command:
+6. 20mM_A_S2_R1_001_peaks.xls file contains information about called peaks for all chromosomes. Split the .xls file
+   for each chromosome by running the following command:
 
    ./scripts/split_peaks_file.sh <EXTSIZE>
 
-   This shell script calls ./scripts/split_peaks_file.py for each summit file, and generates 24 files
-   (chromosomes 1 to 22, X and Y), in the same folder as the summit file.
+   This shell script calls ./scripts/split_peaks_file.py for each .xls file, and generates 24 files
+   (chromosomes 1 to 22, X and Y), in the same folder as the .xls file.
 
 7. For each chromosome, find the intersection between chromosome peaks and chromosome non-b DNA annotations,
    by running thefollowing command:
 
    ./scripts/intersect_peaks.sh <PeaksFolder> <NonBDNAFolder> <EXTSIZE>
 
-   This shell script creates a "_intersect.bed" file for each chromosome in the same folder as the summit file.
+   This shell script creates a "_intersect.bed" file for each chromosome in the same folder as the .xls file.
    <PeaksFolder> parameter value is "./output". <NonBDNAFolder> parameter value is:
 
    /Users/kxk302/workspace/Quadron_Docker/output/hg19/nBMST_plus_Quadron
 
 8. For each chromosome, summarize the intersect files by dividing the sum of the length of intersect intervals
-   by the sum of the lengthof peak intervals, by running the following command:
+   by the sum of the length of peak intervals, by running the following command:
 
    ./scripts/summarize_intersect.sh <PeaksFolder> <EXTSIZE>
 
@@ -80,4 +80,3 @@
    each folder. For each chromosome, it divides the sum of peaks/non-B DNA intersect lengths by the sum of peaks
    lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last line of the txt file
    calculates the harmonic mean of the ratios for all chromosomes.
-
