@@ -84,7 +84,7 @@
    The shell script finds the intersect in <EXTSIZE> folders 25, 35, 50, 75, 100, 150, and 200.
 
 8. For each chromosome, summarize the intersect files by dividing the sum of the length of intersect intervals
-   by the sum of the lengthof peak intervals, by running the following command:
+   by the sum of the length of peak intervals, by running the following command:
 
    ./scripts/summarize_intersect.sh <PeaksFolder> <EXTSIZE>
 
@@ -92,4 +92,3 @@
    each folder. For each chromosome, it divides the sum of peaks/non-B DNA intersect lengths by the sum of peaks
    lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last line of the txt file
    calculates the harmonic mean of the ratios for all chromosomes.
-
