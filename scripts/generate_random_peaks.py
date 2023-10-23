@@ -29,7 +29,7 @@ def generate_random_peaks(input_file, genome_file, window_size, random_seed):
 
 
 if __name__=="__main__":
-  argParse = argparse.ArgumentParser("Generat random peaks, with specific widths, for each chromosome to evaluate MACS peaks")
+  argParse = argparse.ArgumentParser("Generate random peaks, with specific widths, for each chromosome to evaluate MACS peaks")
 
   argParse.add_argument("-i", "--input_file", type=str, required=True)
   argParse.add_argument("-w", "--window_size", type=int, required=True, choices=[25, 35, 50, 75, 100, 150, 200])

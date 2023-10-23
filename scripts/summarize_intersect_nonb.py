@@ -6,9 +6,9 @@ from os import path
 import pandas as pd
 
 
-def summarize_peaks_intersect(peaks_folder, output_folder):
+def summarize_peaks_intersect_nonb(peaks_folder, output_folder, non_b_dna):
 
-  with open(path.join(output_folder, "peaks_summary.txt"), "w") as fp:
+  with open(path.join(output_folder, "peaks_summary_" + non_b_dna + ".txt"), "w") as fp:
 
     fp.write("\t".join(["chromosome", "peaks_length", "non_b_dna_intersect_length", "non_b_dna_intersect_ratio"]) + "\n")
     non_b_dna_intersect_ratio_list = []
@@ -22,7 +22,7 @@ def summarize_peaks_intersect(peaks_folder, output_folder):
       df["length"] = df["stop"] - df["start"] + 1 
       peaks_length = df["length"].sum()
 
-      non_b_dna_intersect_file_path = path.join(peaks_folder, chromosome+"_intersect.bed")
+      non_b_dna_intersect_file_path = path.join(peaks_folder, chromosome + "_" + non_b_dna + "_intersect.bed")
       if not os.path.isfile(non_b_dna_intersect_file_path):
         continue
       df = pd.read_csv(non_b_dna_intersect_file_path, sep="\t", usecols=[0,1,2], names=["chromosome", "start", "stop"])
@@ -45,7 +45,7 @@ def summarize_peaks_intersect(peaks_folder, output_folder):
       df["length"] = df["stop"] - df["start"] + 1 
       peaks_length = df["length"].sum()
 
-      non_b_dna_intersect_file_path = path.join(peaks_folder, chromosome+"_intersect.bed")
+      non_b_dna_intersect_file_path = path.join(peaks_folder, chromosome + "_" + non_b_dna + "_intersect.bed")
       if not os.path.isfile(non_b_dna_intersect_file_path):
         continue
       df = pd.read_csv(non_b_dna_intersect_file_path, sep="\t", usecols=[0,1,2], names=["chromosome", "start", "stop"])
@@ -59,7 +59,8 @@ def summarize_peaks_intersect(peaks_folder, output_folder):
       non_b_dna_intersect_ratio_list.append(non_b_dna_intersect_ratio)
       fp.write("\t".join([chromosome, str(peaks_length), str(non_b_dna_intersect_length), str(non_b_dna_intersect_ratio)]) + "\n")
 
-    fp.write("Harmonic mean of intersect ratio: " + str(statistics.harmonic_mean(non_b_dna_intersect_ratio_list)) + "\n")
+    if len(non_b_dna_intersect_ratio_list) > 0:
+      fp.write("Harmonic mean of intersect ratio: " + str(statistics.harmonic_mean(non_b_dna_intersect_ratio_list)) + "\n")
 
 
 if __name__ == "__main__":
@@ -67,7 +68,9 @@ if __name__ == "__main__":
 
   argParse.add_argument("-i", "--peaks_folder", type=str, required=True)
   argParse.add_argument("-o", "--output_folder", type=str, required=True)
+  argParse.add_argument("-n", "--non_b_dna", type=str, required=True, 
+                        choices=["DR", "GQ", "IR", "MR", "STR"])
 
   args = argParse.parse_args()
 
-  summarize_peaks_intersect(args.peaks_folder, args.output_folder)
+  summarize_peaks_intersect_nonb(args.peaks_folder, args.output_folder, args.non_b_dna)

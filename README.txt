@@ -61,18 +61,18 @@
 
    Run run_peak_caller.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
 
-6. ATCC_0mM_S1_R1_001_peaks.xls file contains information about called peaks for all chromosomes. Save the summit
-   information for each chromosome by running the following command:
+6. ATCC_0mM_S1_R1_001_peaks.xls file contains information about called peaks for all chromosomes. Save
+   the summit information for each chromosome by running the following command:
 
    ./scripts/split_peaks_file.sh <EXTSIZE>
 
-   This shell script calls ./scripts/split_peaks_file.py for each "_peaks.xls" file, and generates 24 files
-   (chromosomes 1 to 22, X and Y), in the same folder as the "_peaks.xls" file.
+   This shell script calls ./scripts/split_peaks_file.py for each "_peaks.xls" file, and generates 24
+   files (chromosomes 1 to 22, X and Y), in the same folder as the "_peaks.xls" file.
 
    Run split_peaks_file.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
 
-7. For each chromosome, find the intersection between chromosome peaks and chromosome non-b DNA annotations,
-   by running thefollowing command:
+7. For each chromosome, find the intersection between chromosome peaks and chromosome non-b DNA
+   annotations, by running thefollowing command:
 
    ./scripts/intersect_peaks.sh <PeaksFolder> <NonBDNAFolder>
 
