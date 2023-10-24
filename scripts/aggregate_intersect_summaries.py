@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 
 
-def aggregate_intersect_reports(input_folder, extsize_list, output_file):
+def aggregate_intersect_reports(input_folder, extsize_list, output_file, random_subfolder):
   input_folder_path = Path(input_folder)
 
   columns = ["Sample_Name", "Window_Size", "Harmonic_Mean"]
@@ -18,9 +18,16 @@ def aggregate_intersect_reports(input_folder, extsize_list, output_file):
     if not ff.is_dir():
       continue
 
+    # Skip 'random' folder
+    if ff.name.endswith('random'):
+      continue
+
     for extsize in extsize_list:
       subfolder = "extsize_" + str(extsize)
-      report_file = ff / subfolder / "peaks_summary.txt"
+      if random_subfolder is None:
+        report_file = ff / subfolder / "peaks_summary.txt"
+      else:
+        report_file = ff / subfolder / random_subfolder / "peaks_summary.txt"
       print(f"report_file: {report_file}")
       with open(report_file, "r") as fp:
         for line in fp:
@@ -40,6 +47,7 @@ if __name__=="__main__":
   argParse.add_argument("-i", "--input_folder", type=str, required=True)
   argParse.add_argument("-e", "--extsize", nargs="+", required=True)
   argParse.add_argument("-o", "--output_file", type=str, required=True)
+  argParse.add_argument("-r", "--random_subfolder", type=str, required=False)
 
   args = argParse.parse_args()
-  aggregate_intersect_reports(args.input_folder, args.extsize, args.output_file)
+  aggregate_intersect_reports(args.input_folder, args.extsize, args.output_file, args.random_subfolder)
