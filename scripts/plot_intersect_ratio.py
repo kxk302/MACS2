@@ -15,6 +15,10 @@ def plot_intersect_ratio(intersect_ratio_file,
   random_df = pd.read_csv(random_intersect_ratio_file, sep="\t")
 
   all_df = pd.merge(intersect_df, random_df, how="inner", on=["Sample_Name", "Window_Size"])
+
+  # Remove sample names starting with 'Undetermined'
+  all_df = all_df[~all_df["Sample_Name"].astype(str).str.startswith("Undetermined")]
+
   all_df.sort_values(by=["Harmonic_Mean_x"], ascending=False, inplace=True)
   all_df.rename(columns={"Harmonic_Mean_x":"Harmonic_Mean",
                          "Harmonic_Mean_y":"Harmonic_Mean_Random"}, inplace=True)
