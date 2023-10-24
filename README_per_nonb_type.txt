@@ -56,21 +56,22 @@
    file in the same folder. The last line of the .txt file calculates the harmonic mean of the intersect ratios for
    all chromosomes.
 
-14. Aggregate random intersect summaries, for each non-B DNA type, by running the following command:
+7. Aggregate random intersect summaries, for each non-B DNA type, by running the following command:
 
-   ./scripts/aggregate_random_intersect_summaries_nonb.sh
+  ./scripts/aggregate_random_intersect_summaries_nonb.sh
 
-   This script calls ./scripts/aggregate_intersect_summaries_nonb.py, that reads the last line of
-   'peaks_summary_<NonBDNAType>.txt' file in each random folder to get the Harmonic mean value of intersect ratio
-   between random intervals and each non-B DNA type, and writes the Harmonic mean value to a file named
-   './output/random_intersect_summaries_<NonBDNAType>.tsv. The folder names in this file are sorted based the value
-   of the Harmonic mean, in descending order.
+  This script calls ./scripts/aggregate_intersect_summaries_nonb.py, that reads the last line of
+  'peaks_summary_<NonBDNAType>.txt' file in each random folder to get the Harmonic mean value of intersect ratio
+  between random intervals and each non-B DNA type, and writes the Harmonic mean value to a file named
+  './output/random_intersect_summaries_<NonBDNAType>.tsv. The folder names in this file are sorted based the value
+  of the Harmonic mean, in descending order.
 
-15. For each non-B DNA type, plot the samples with best intersect ratio in a bar plot by running the following command:
+8. For each non-B DNA type, plot the samples with best intersect ratio in a bar plot by running the following command:
 
-    ./scripts/plot_intersect_ratio.sh
+   ./scripts/plot_intersect_ratio_nonb.sh
 
-    The shell script calls ./scripts/plot_intersect_ratio.py. Intersect summaries (./output/intersect_summaries.tsv)
-    and random intersect summaries (./output/random_intersect_summaries.tsv) are passed in as input. We also pass a
-    filter value, such that rows in intersect_summaries.tsv whose harmonic mean is less than the filter value are
-    ignored. The  bar plot is saved as an .png file.
+   The shell script calls ./scripts/plot_intersect_ratio.pyi for each non-B DNA type. Intersect summaries
+   (./output/intersect_summaries_<NonBDNAType>.tsv) and random intersect summaries
+   (./output/random_intersect_summaries_<NonBDNAType>.tsv) are passed in as input. We also pass a filter value,
+   such that rows in intersect_summaries_<NonBDNAType>.tsv whose harmonic mean is less than the filter value are
+   ignored. The  bar plot for each no-B DNA type is saved separately as an .png file.

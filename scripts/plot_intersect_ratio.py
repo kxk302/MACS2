@@ -8,7 +8,9 @@ import numpy as np
 def plot_intersect_ratio(intersect_ratio_file,
                          random_intersect_ratio_file,
                          intersect_ratio_filter,
-                         output_file):
+                         output_file,
+                         non_b_dna):
+
   intersect_df = pd.read_csv(intersect_ratio_file, sep="\t")
   intersect_df = intersect_df[ intersect_df.Harmonic_Mean >= intersect_ratio_filter]
 
@@ -44,6 +46,10 @@ def plot_intersect_ratio(intersect_ratio_file,
 
   plt.subplots_adjust(bottom=0.3)
   plt.legend()
+  if non_b_dna is None:
+    plt.title("All non-B DNA types", fontweight="bold", fontsize=20)
+  else:
+    plt.title(non_b_dna + " non-B DNA type", fontweight="bold", fontsize=20)
   plt.savefig(output_file)
 
 
@@ -56,9 +62,12 @@ if __name__ == "__main__":
   argParse.add_argument("-r", "--random_intersect_ratio_file", type=str, required=True)
   argParse.add_argument("-f", "--intersect_ratio_filter", type=float, required=True)
   argParse.add_argument("-o", "--output_file", type=str, required=True)
+  argParse.add_argument("-n", "--non_b_dna", type=str, required=False,
+                        choices=["DR", "GQ", "IR", "MR", "STR"])
 
   args = argParse.parse_args()
   plot_intersect_ratio(args.intersect_ratio_file,
                        args.random_intersect_ratio_file,
                        args.intersect_ratio_filter,
-                       args.output_file)
+                       args.output_file,
+                       args.non_b_dna)
