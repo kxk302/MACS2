@@ -5,7 +5,8 @@ from pathlib import Path
 import pandas as pd
 
 
-def aggregate_intersect_reports_nonb(input_folder, extsize_list, output_file, non_b_dna):
+def aggregate_intersect_summaries_nonb(input_folder, extsize_list, output_file,
+                                       non_b_dna, random_subfolder):
   input_folder_path = Path(input_folder)
 
   columns = ["Sample_Name", "Window_Size", "Harmonic_Mean"]
@@ -19,10 +20,17 @@ def aggregate_intersect_reports_nonb(input_folder, extsize_list, output_file, no
     if not ff.is_dir():
       continue
 
+    # Skip 'random' folder
+    if ff.name.endswith('random'):
+      continue
+
     for extsize in extsize_list:
       subfolder = "extsize_" + str(extsize)
       summary_file_name = "peaks_summary_" + non_b_dna + ".txt"
-      report_file = ff / subfolder / summary_file_name
+      if random_subfolder is None:
+        report_file = ff / subfolder / summary_file_name
+      else:
+        report_file = ff / subfolder / random_subfolder / summary_file_name
       print(f"report_file: {report_file}")
       if not os.path.isfile(report_file):
         continue
@@ -50,7 +58,8 @@ if __name__=="__main__":
   argParse.add_argument("-n", "--non_b_dna", type=str, required=True,
                         choices=["DR", "GQ", "IR", "MR", "STR"])
   argParse.add_argument("-o", "--output_file", type=str, required=True)
+  argParse.add_argument("-r", "--random_subfolder", type=str, required=False)
 
   args = argParse.parse_args()
-  aggregate_intersect_reports_nonb(args.input_folder, args.extsize, 
-                                   args.output_file, args.non_b_dna)
+  aggregate_intersect_summaries_nonb(args.input_folder, args.extsize, args.output_file,
+                                     args.non_b_dna, args.random_subfolder)

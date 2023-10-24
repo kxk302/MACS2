@@ -71,55 +71,54 @@
 
    Run split_peaks_file.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
 
-7. For each chromosome, find the intersection between chromosome peaks and chromosome non-b DNA
-   annotations, by running thefollowing command:
+7. For each chromosome, find the intersection between chromosome peaks and non-b DNA annotations
+   by running thefollowing command:
 
    ./scripts/intersect_peaks.sh <PeaksFolder> <NonBDNAFolder>
 
-   This shell script creates a "_intersect.bed" file for each chromosome in the same folder as the peaks file.
-   <PeaksFolder> parameter value is "./output". <NonBDNAFolder> parameter value is:
+   This shell script creates a "_intersect.bed" file for each chromosome in the same random folder
+   as the peaks file. <PeaksFolder> parameter value is "./output". <NonBDNAFolder> parameter value is:
 
    /Users/kxk302/workspace/Quadron_Docker/output/hg19/nBMST_plus_Quadron
 
-   The shell script finds the intersect in <EXTSIZE> folders 25, 35, 50, 75, 100, 150, and 200.
+   The shell script finds the intersect in <EXTSIZE> subfolders 25, 35, 50, 75, 100, 150, and 200.
 
-8. For each chromosome, summarize the intersect files by dividing the sum of the length of intersect intervals
-   by the sum of the length of peak intervals, by running the following command:
+8. For each chromosome, summarize the intersect files by dividing the sum of the length of the intersect
+   intervals by the sum of the length of the peak intervals, by running the following command:
 
    ./scripts/summarize_intersect.sh <PeaksFolder> <EXTSIZE>
 
    <PeaksFolder> parameter value is "./output". This shell scripts calls ./scripts/summarize_intersect.py for
-   each folder. For each chromosome, it divides the sum of peaks/non-B DNA intersect lengths by the sum of peaks
-   lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last line of the txt file
-   calculates the harmonic mean of the ratios for all chromosomes.
+   each folder. For each chromosome, it divides the sum of peaks/non-B DNA intersect lengths by the sum of the
+   peaks lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last line of the txt file
+   calculates the harmonic mean of the intersect ratios for all chromosomes.
 
 9. Aggregate intersect summaries by running the following command:
 
    ./scripts/aggregate_intersect_summaries.sh
 
    This script calls ./scripts/aggregate_intersect_summaries.py, that reads the last line of 'peaks_summary.txt'
-   file in each folder to get the Harmonic mean value of intersect ratio between peaks and non-B DNA, and writes
-   the Harmonic mean value to a file named './output/intersect_summaries.tsv. The folder names in this file are
-   sorted based the value of the Harmonic mean, in descending order.
+   file in each folder to get the Harmonic mean value of the intersect ratio between peaks and non-B DNA, and
+   writes the Harmonic mean value to a file named './output/intersect_summaries.tsv. The folder names in this
+   file are sorted based the value of the Harmonic mean, in descending order.
 
-10. To evaluate PDAL-seq, we compare the non-B DNA intersect ratio of PDAL-seq with the intersect ratio of random
+10. To evaluate PDAL-seq, we compare PDAL-seq intervals with random intervals regarding intersection with non-B DNA
     intervals. To generate random intervals, run the following command:
 
     ./scripts/generate_random_peaks.sh
 
-    The shells script calls ./scripts/generate_random_peaks.py for all folders and all EXTSIZEs, based on the
-    number of peaks in .xls file in that folder and EXTSIZE subfolder. The script creates a file with the same
-    name as .xls file, but ending in '_peaks_random.bed'
+    The shell script calls ./scripts/generate_random_peaks.py for all folders and all EXTSIZE subfolders. The script
+    creates a file with the same name as .xls file, but ending in '_peaks_random.bed'
 
-11. Split the random intervals file, in all folders and EXTSIZE subfolders, by running the following command:
+11. Split the random intervals file, for all folders and EXTSIZE subfolders, by running the following command:
 
     ./scripts/split_random_peaks_file.sh
 
     This script creates a 'random' folder, in each folder and EXTSIZE subfolder, then creates a .bed file for
     random intervals in each chromosome.
 
-12. For each folder, EXTSIZE subfolder, and chromosome in random folder, find the intersection between the
-    chromosome random intervals and non-b DNA annotations, by running thefollowing command:
+12. For each chromosome in each folder and EXTSIZE subfolder, find the intersection between the chromosome random
+    intervals and non-b DNA annotations, by running thefollowing command:
 
     ./scripts/intersect_random_peaks.sh <PeaksFolder> <NonBDNAFolder>
 
@@ -131,12 +130,12 @@
 13. For each chromosome in the random folder, summarize the intersect files by dividing the sum of the length of
     intersect intervals by the sum of the length of random intervals, by running the following command:
 
-   ./scripts/summarize_random_intersect.sh <PeaksFolder>
+    ./scripts/summarize_random_intersect.sh <PeaksFolder>
 
-   <PeaksFolder> parameter value is "./output". This shell scripts calls ./scripts/summarize_intersect.py for
-   each folder. For each chromosome, it divides the sum of random/non-B DNA intersect lengths by the sum of random
-   intervals lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last line of the txt file
-   calculates the harmonic mean of the ratios for all chromosomes.
+    <PeaksFolder> parameter value is "./output". This shell scripts calls ./scripts/summarize_intersect.py for
+    each folder. For each chromosome, it divides the sum of random/non-B DNA intersect intervals lengths by the
+    sum of the random intervals lengths, and writes them to a "peaks_summary.txt" file in the same folder. The
+    last line of the txt file calculates the harmonic mean of the intersect ratios for all chromosomes.
 
 14. Aggregate random intersect summaries by running the following command:
 
@@ -153,5 +152,5 @@
 
     The shell script calls ./scripts/plot_intersect_ratio.py. Intersect summaries (./output/intersect_summaries.tsv)
     and random intersect summaries (./output/random_intersect_summaries.tsv) are passed in as input. We also pass a
-    filter value, such that samples whose harmonic value of intersect ratio is less than the filter are iognored. The
-    bar plot is saved to a file as an .png image.
+    filter value, such that rows in intersect_summaries.tsv whose harmonic mean is less than the filter value are
+    ignored. The  bar plot is saved as an .png file.

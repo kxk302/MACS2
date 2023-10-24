@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 
 
-def aggregate_intersect_reports(input_folder, extsize_list, output_file, random_subfolder):
+def aggregate_intersect_summaries(input_folder, extsize_list, output_file, random_subfolder):
   input_folder_path = Path(input_folder)
 
   columns = ["Sample_Name", "Window_Size", "Harmonic_Mean"]
@@ -50,4 +50,4 @@ if __name__=="__main__":
   argParse.add_argument("-r", "--random_subfolder", type=str, required=False)
 
   args = argParse.parse_args()
-  aggregate_intersect_reports(args.input_folder, args.extsize, args.output_file, args.random_subfolder)
+  aggregate_intersect_summaries(args.input_folder, args.extsize, args.output_file, args.random_subfolder)

@@ -6,7 +6,7 @@ from os import path
 import pandas as pd
 
 
-def summarize_peaks_intersect_nonb(peaks_folder, output_folder, non_b_dna):
+def summarize_intersect_nonb(peaks_folder, output_folder, non_b_dna):
 
   with open(path.join(output_folder, "peaks_summary_" + non_b_dna + ".txt"), "w") as fp:
 
@@ -59,8 +59,10 @@ def summarize_peaks_intersect_nonb(peaks_folder, output_folder, non_b_dna):
       non_b_dna_intersect_ratio_list.append(non_b_dna_intersect_ratio)
       fp.write("\t".join([chromosome, str(peaks_length), str(non_b_dna_intersect_length), str(non_b_dna_intersect_ratio)]) + "\n")
 
-    if len(non_b_dna_intersect_ratio_list) > 0:
-      fp.write("Harmonic mean of intersect ratio: " + str(statistics.harmonic_mean(non_b_dna_intersect_ratio_list)) + "\n")
+    # Remove 0.00 values as Harmonic mean does not work with 0 values
+    non_b_dna_intersect_ratio_list_filtered = [i for i in non_b_dna_intersect_ratio_list if i != 0.00]
+    if len(non_b_dna_intersect_ratio_list_filtered) > 0:
+      fp.write("Harmonic mean of intersect ratio: " + str(statistics.harmonic_mean(non_b_dna_intersect_ratio_list_filtered)) + "\n")
 
 
 if __name__ == "__main__":
@@ -68,9 +70,9 @@ if __name__ == "__main__":
 
   argParse.add_argument("-i", "--peaks_folder", type=str, required=True)
   argParse.add_argument("-o", "--output_folder", type=str, required=True)
-  argParse.add_argument("-n", "--non_b_dna", type=str, required=True, 
+  argParse.add_argument("-n", "--non_b_dna", type=str, required=True,
                         choices=["DR", "GQ", "IR", "MR", "STR"])
 
   args = argParse.parse_args()
 
-  summarize_peaks_intersect_nonb(args.peaks_folder, args.output_folder, args.non_b_dna)
+  summarize_intersect_nonb(args.peaks_folder, args.output_folder, args.non_b_dna)

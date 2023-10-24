@@ -20,7 +20,7 @@ do
   do
     for NON_B in STR DR MR IR GQ 
     do
-      cd ${FOLDER}/extsize_${EXTSIZE}
+      cd ${FOLDER}/extsize_${EXTSIZE}/random
 
       for chromosome in {1..22}
       do

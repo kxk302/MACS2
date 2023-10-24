@@ -17,7 +17,7 @@ do
     for non_b in DR GQ IR MR STR
     do
       echo "$folder $extsize $non_b"
-      python3 ./scripts/summarize_intersect_nonb.py -i ${PeaksFolder}/${folder}/extsize_${extsize} -o ${PeaksFolder}/${folder}/extsize_${extsize} -n ${non_b}
+      python3 ./scripts/summarize_intersect_nonb.py -i ${PeaksFolder}/${folder}/extsize_${extsize}/random -o ${PeaksFolder}/${folder}/extsize_${extsize}/random -n ${non_b} 
     done
   done
 done
