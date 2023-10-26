@@ -1,3 +1,5 @@
 #!/bin/bash
 
-python3 ./scripts/plot_intersect_ratio.py -i ./output/intersect_summaries.tsv -r ./output/random_intersect_summaries.tsv -f 0.45 -o ./output/intersect_ratio.png
+number_of_intersect_ratios=10
+
+python3 ./scripts/plot_intersect_ratio.py -i ./output/intersect_summaries.tsv -r ./output/random_intersect_summaries.tsv -u ${number_of_intersect_ratios} -o ./output/intersect_ratio.png
