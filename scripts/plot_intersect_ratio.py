@@ -15,6 +15,9 @@ def plot_intersect_ratio(intersect_ratio_file,
 
   intersect_df = pd.read_csv(intersect_ratio_file, sep="\t")
 
+  # Remove sample names starting with 'Undetermined'
+  intersect_df = intersect_df[~intersect_df["Sample_Name"].astype(str).str.startswith("Undetermined")]
+
   # Either filter the intersect ratio based on a filter value, or get
   # the top n rows (rows sorted ascendingly based on intersect ratio)
   if intersect_ratio_filter is not None:
@@ -25,9 +28,6 @@ def plot_intersect_ratio(intersect_ratio_file,
   random_df = pd.read_csv(random_intersect_ratio_file, sep="\t")
 
   all_df = pd.merge(intersect_df, random_df, how="inner", on=["Sample_Name", "Window_Size"])
-
-  # Remove sample names starting with 'Undetermined'
-  all_df = all_df[~all_df["Sample_Name"].astype(str).str.startswith("Undetermined")]
 
   all_df.sort_values(by=["Harmonic_Mean_x"], ascending=False, inplace=True)
   all_df.rename(columns={"Harmonic_Mean_x":"Harmonic_Mean",
