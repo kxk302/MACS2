@@ -4,6 +4,15 @@ from matplotlib import pyplot as plt
 
 import numpy as np
 
+non_b_dna_dict = {
+    "APR":"A-Phased Repeats",
+    "STR": "Short Tandem Repeats",
+    "DR": "Direct Repeats",
+    "MR": "Mirror Repeats",
+    "IR": "Inverted Repeats",
+    "GQ": "G-Quadruplex",
+    "Z": "Z DNA",
+  }
 
 def plot_intersect_ratio(intersect_ratio_file,
                          random_intersect_ratio_file,
@@ -40,7 +49,7 @@ def plot_intersect_ratio(intersect_ratio_file,
   all_df.rename(columns={"New_Sample_Name":"Sample_Name"}, inplace=True)
 
   barWidth=0.1
-  fig = plt.subplots(figsize =(9, 6))
+  fig = plt.subplots(figsize =(8, 5.5))
 
   harmonic_mean = all_df["Harmonic_Mean"].tolist()
   harmonic_mean_radom = all_df["Harmonic_Mean_Random"].tolist()
@@ -60,7 +69,7 @@ def plot_intersect_ratio(intersect_ratio_file,
   if non_b_dna is None:
     plt.title("All non-B DNA types", fontweight="bold", fontsize=20)
   else:
-    plt.title(non_b_dna + " non-B DNA type", fontweight="bold", fontsize=20)
+    plt.title(non_b_dna_dict[non_b_dna], fontweight="bold", fontsize=20)
   plt.savefig(output_file)
 
 

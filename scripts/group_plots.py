@@ -15,11 +15,11 @@ def group_plots(input_folder, output_file):
     image_list.append(cv2.imread(str(plot_name)))
 
   # create figure 
-  fig = plt.figure(figsize=(25, 15)) 
-  
+  fig = plt.figure(figsize=(18, 9))
+
   # setting values to rows and column variables 
-  rows = 3
-  columns = 2
+  rows = 2
+  columns = 3
 
   for idx in range(rows*columns):
     
@@ -32,6 +32,7 @@ def group_plots(input_folder, output_file):
     plt.axis('off')
 
   plt.subplots_adjust(wspace=0, hspace=0)
+  plt.tight_layout()
   plt.savefig(output_file)
 
 
