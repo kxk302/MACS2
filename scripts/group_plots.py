@@ -32,7 +32,7 @@ def group_plots(input_folder, output_file):
     plt.axis('off')
 
   plt.subplots_adjust(wspace=0, hspace=0)
-  plt.show()
+  plt.savefig(output_file)
 
 
 if __name__ == "__main__":
