@@ -29,6 +29,9 @@ def plot_intersect_ratio(intersect_ratio_file,
   # Remove sample names starting with 'Undetermined'
   intersect_df = intersect_df[~intersect_df["Sample_Name"].astype(str).str.startswith("Undetermined")]
 
+  # Remove sample names starting with 'H1299'
+  intersect_df = intersect_df[~intersect_df["Sample_Name"].astype(str).str.startswith("H1299")]
+
   # Either filter the intersect ratio based on a filter value, or get
   # the top n rows (rows sorted ascendingly based on intersect ratio)
   if intersect_ratio_filter is not None:
@@ -45,6 +48,7 @@ def plot_intersect_ratio(intersect_ratio_file,
   all_df.rename(columns={"Harmonic_Mean_x":"Harmonic_Mean",
                          "Harmonic_Mean_y":"Harmonic_Mean_Random"}, inplace=True)
   all_df["New_Sample_Name"] = "Sample " + all_df["ID"].astype(str) + " (win " + all_df["Window_Size"].astype(str) + ")"
+
   all_df.drop(columns=["Sample_Name", "Window_Size"], inplace=True)
   all_df.rename(columns={"New_Sample_Name":"Sample_Name"}, inplace=True)
 
