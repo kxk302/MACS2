@@ -103,8 +103,8 @@
 
     ./scripts/generate_random_peaks.sh
 
-    The shell script calls ./scripts/generate_random_peaks.py for all folders and all EXTSIZE subfolders. The script
-    creates a file with the same name as .xls file, but ending in '_peaks_random.bed'
+    The shell script calls ./scripts/generate_random_peaks.py for all folders and all EXTSIZE subfolders. The
+    script creates a file with the same name as .xls file, but ending in '_peaks_random.bed'.
 
 11. Split the random intervals file, for all folders and EXTSIZE subfolders, by running the following command:
 
