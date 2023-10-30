@@ -1,4 +1,4 @@
-1. There are the following 24 files for PDAL-seq experiment:
+1. There are the following 20 files for PDAL-seq experiment:
 
    ATCC_0mM_S1_R1_001.fastq
    ATCC_0mM_S1_R2_001.fastq
@@ -20,10 +20,6 @@
    F_1_40mM_A_S9_R2_001.fastq
    F_1_40mM_B_S10_R1_001.fastq
    F_1_40mM_B_S10_R2_001.fastq
-   H1299_40mM_20US1_R1.fastq
-   H1299_40mM_9US1_R1.fastq
-   Undetermined_S0_R1_001.fastq
-   Undetermined_S0_R2_001.fastq
 
 2. In the Galaxy history listed below, each fastq file is mapped to hg19 using BWA-MEM (Creates
    a .bam file), the .bam file is filtered based on mapping quality >= 30 (Creates another .bam
@@ -102,8 +98,8 @@
    writes the Harmonic mean value to a file named './output/intersect_summaries.tsv. The folder names in this
    file are sorted based the value of the Harmonic mean, in descending order.
 
-10. To evaluate PDAL-seq, we compare PDAL-seq intervals with random intervals regarding intersection with non-B DNA
-    intervals. To generate random intervals, run the following command:
+10. To evaluate PDAL-seq, we compare PDAL-seq intervals with random intervals regarding intersection with
+    non-B DNA intervals. To generate random intervals, run the following command:
 
     ./scripts/generate_random_peaks.sh
 
@@ -150,7 +146,8 @@
 
     ./scripts/plot_intersect_ratio.sh
 
-    The shell script calls ./scripts/plot_intersect_ratio.py. Intersect summaries (./output/intersect_summaries.tsv)
-    and random intersect summaries (./output/random_intersect_summaries.tsv) are passed in as input. We also pass a
-    filter value, such that rows in intersect_summaries.tsv whose harmonic mean is less than the filter value are
-    ignored. The  bar plot is saved as an .png file.
+    The shell script calls ./scripts/plot_intersect_ratio.py. Intersect summaries
+    (./output/intersect_summaries.tsv) and random intersect summaries
+    (./output/random_intersect_summaries.tsv) are passed in as input. We also pass a filter
+    value, such that rows in intersect_summaries.tsv whose harmonic mean is less than the
+    filter value are ignored. The  bar plot is saved as an .png file.
