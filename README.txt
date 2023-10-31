@@ -1,4 +1,4 @@
-1. There are the following 20 files for PDAL-seq experiment:
+1. There are the following 25 files for PDAL-seq experiment:
 
    ATCC_0mM_S1_R1_001.fastq
    ATCC_0mM_S1_R2_001.fastq
@@ -20,6 +20,11 @@
    F_1_40mM_A_S9_R2_001.fastq
    F_1_40mM_B_S10_R1_001.fastq
    F_1_40mM_B_S10_R2_001.fastq
+   20mM_A_S2_R1_001
+   20mM_A_try25_S6_R1_001
+   20mM_B_S3_R1_001
+   40mM_A_S4_R1_001
+   40mM_B_S5_R1_001
 
 2. In the Galaxy history listed below, each fastq file is mapped to hg19 using BWA-MEM (Creates
    a .bam file), the .bam file is filtered based on mapping quality >= 30 (Creates another .bam
@@ -121,9 +126,10 @@
     ./scripts/intersect_random_peaks.sh <PeaksFolder> <NonBDNAFolder>
 
     This shell script creates a "_intersect.bed" file for each chromosome in the same random folder as the .bed
-    file. <PeaksFolder> parameter value is "./output". <NonBDNAFolder> parameter value is:
+    file. <PeaksFolder> parameter value is "./output". As for <NonBDNAFolder> parameter value, set it to './nonb'
+    and copy the non-B DNA Annotations files from 'All-Non-B-DNA-Annotations' collection in Galaxy history below:
 
-    /Users/kxk302/workspace/Quadron_Docker/output/hg19/nBMST_plus_Quadron
+    https://usegalaxy.org/u/kaivan/h/pdal-seq-non-b-dna-annotations
 
 13. For each chromosome in the random folder, summarize the intersect files by dividing the sum of the length of
     intersect intervals by the sum of the length of random intervals, by running the following command:
