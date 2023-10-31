@@ -39,10 +39,11 @@
    ./scripts/intersect_random_peaks_nonb.sh <PeaksFolder> <NonBDNAFolder>
 
    This shell script creates a "<NonBDNAType>_intersect.bed" file for each chromosome and non-B DNA type in the
-   same random folder as the .bed file. <PeaksFolder> parameter value is "./output". <NonBDNAFolder> parameter
-   value is:
+   same random folder as the .bed file. <PeaksFolder> parameter value is "./output". As for
+   <NonBDNAFolder> parameter value, set it to './nonb' and copy the non-B DNA Annotations files
+   from 'Non-B-DNA-Annotations' collection in Galaxy history below:
 
-   /Users/kxk302/workspace/Quadron_Docker/output/hg19/nBMST_plus_Quadron
+   https://usegalaxy.org/u/kaivan/h/pdal-seq-non-b-dna-annotations
 
 6. For each chromosome in the random folder and EXTSIZE subfolder, and for each non-B DNA type, summarize the
    intersect files by dividing the sum of the length of intersect intervals by the sum of the length of random
