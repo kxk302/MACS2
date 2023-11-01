@@ -31,7 +31,7 @@
    file), .bam file's intervals that intersect with a black listed region are removed, and the
    resulting .bam file is converted to .bigwig.
 
-   https://usegalaxy.org/u/kaivan/h/pdal-seq-workflow
+   https://usegalaxy.org/u/kaivan/h/pdal-seq-collection-1
 
 3. In the Galaxy history listed below, .bigwig is converted to histogram format.
 
