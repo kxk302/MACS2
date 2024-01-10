@@ -80,7 +80,7 @@ def plot_intersect_ratio(intersect_ratio_file,
 if __name__ == "__main__":
 
   argParse = argparse.ArgumentParser("Bar plot for non-B DNA intersect ratio of "
-                                     "samples and non-B DNA intersct ratio of random "
+                                     "samples and non-B DNA intersect ratio of random "
                                      "intervals with the same window size")
   argParse.add_argument("-i", "--intersect_ratio_file", type=str, required=True)
   argParse.add_argument("-r", "--random_intersect_ratio_file", type=str, required=True)
