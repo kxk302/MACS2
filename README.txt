@@ -79,7 +79,7 @@
 
    This shell script creates a "_intersect.bed" file for each chromosome in the same random folder
    as the peaks file. <PeaksFolder> parameter value is "./output". As for <NonBDNAFolder> parameter
-   value, set it to './nonb' and copy the non-B DNA Annotations files from 'All-Non-B-DNA-Annotations'
+   value, set it to './nonb' and copy the non-B DNA annotations files from 'All-Non-B-DNA-Annotations'
    collection in Galaxy history below:
 
    https://usegalaxy.org/u/kaivan/h/pdal-seq-non-b-dna-annotations
