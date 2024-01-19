@@ -10,9 +10,14 @@ def add_peak_column(input_folder, output_folder):
   for file in files:
     file_path = os.path.join(input_folder, file)
     file_name = pathlib.Path(file_path).stem
+    file_extension = pathlib.Path(file_path).suffix
     
     # Ignore any directories. We only process files in input_folder
     if not os.path.isfile(file_path):
+      continue
+
+    # Ignore any file that is NOT .tabular
+    if file_extension != ".tabular":
       continue
 
     print(f"{file_path} is a file")

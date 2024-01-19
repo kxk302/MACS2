@@ -43,15 +43,17 @@
    value for the number of reads, so we can find valleys by peak calling. Add as a new column to 
    bigwig-to-histogram files by activating the venv and running the following command:
 
-   . ./venv/bin/activate;./scripts/add_peak_column.sh;
+   . ./venv/bin/activate;./scripts/add_peak_column.sh <InputFolder> <OutputFolder>;
 
-   This shell script creates a "_peak.bed" file for each tabular file in ./input folder
+   Set both <InputFolder> and <OutputFolder> to './input'. This shell script creates a "_peak.bed" file
+   for each tabular file in ./input folder
 
 5. Do MACS2 peak calling by running the following command:
 
-   ./scripts/run_peak_caller.sh <EXTSIZE>
+   ./scripts/run_peak_callers.sh
 
-   Must pass "extsize" input parameter needed by MACS2. For each .bed file, this generates a folder in
+   This script calls ./scripts/run_peak_caller.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
+   <EXTSIZE> input parameter is needed by MACS2. For each .bed file, this generates a folder in
    ./output folder (e.g., for "ATCC_0mM_S1_R1_001_peak.bed" and extsize 25 it creates a
    "./output/ATCC_0mM_S1_R1_001/extsize_25" folder). In each folder, 3 files are created. E.g., in
    "./output/ATCC_0mM_S1_R1_001/extsize_25" folder, the following files are created:
@@ -60,17 +62,14 @@
    ATCC_0mM_S1_R1_001_peaks.narrowPeak: peak locations together with peak summit, p-value, and q-value
    ATCC_0mM_S1_R1_001_summits.bed: contains the peak summits locations for every peak
 
-   Run run_peak_caller.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
-
 6. ATCC_0mM_S1_R1_001_peaks.xls file contains information about called peaks for all chromosomes. Save
    the peaks information for each chromosome by running the following command:
 
-   ./scripts/split_peaks_file.sh <EXTSIZE>
+   ./scripts/split_peaks_files.sh
 
-   This shell script calls ./scripts/split_peaks_file.py for each "_peaks.xls" file, and generates 24
-   .bed files (chromosomes 1 to 22, X and Y), in the same folder as the "_peaks.xls" file.
-
-   Run split_peaks_file.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
+   This script calls ./script/split_peaks_file.sh with <EXTSIZE> set to 25, 35, 50, 75, 100, 150, and 200.
+   The ./scripts/split_peaks_file.sh, in turn, calls ./scripts/split_peaks_file.py for each "_peaks.xls" file
+   and generates 24 .bed files (chromosomes 1 to 22, X and Y), in the same folder as the "_peaks.xls" file.
 
 7. For each chromosome, find the intersection between chromosome peaks and non-b DNA annotations
    by running thefollowing command:
@@ -79,8 +78,9 @@
 
    This shell script creates a "_intersect.bed" file for each chromosome in the same random folder
    as the peaks file. <PeaksFolder> parameter value is "./output". As for <NonBDNAFolder> parameter
-   value, set it to './nonb' and copy the non-B DNA annotations files from 'All-Non-B-DNA-Annotations'
-   collection in Galaxy history below:
+   value, create a directory called './nonb' and copy the non-B DNA annotations files from
+   'All-Non-B-DNA-Annotations' collection in Galaxy history below. Pass the full path of 'nonb' folder
+   as the second argument.
 
    https://usegalaxy.org/u/kaivan/h/pdal-seq-non-b-dna-annotations
 
@@ -89,12 +89,12 @@
 8. For each chromosome, summarize the intersect files by dividing the sum of the length of the intersect
    intervals by the sum of the length of the peak intervals, by running the following command:
 
-   ./scripts/summarize_intersect.sh <PeaksFolder> <EXTSIZE>
+   ./scripts/summarize_intersect.sh <PeaksFolder>
 
    <PeaksFolder> parameter value is "./output". This shell scripts calls ./scripts/summarize_intersect.py for
-   each folder. For each chromosome, it divides the sum of peaks/non-B DNA intersect lengths by the sum of the
-   peaks lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last line of the txt file
-   calculates the harmonic mean of the intersect ratios for all chromosomes.
+   each folder and each <EXTSIZE>. For each chromosome, it divides the sum of peaks/non-B DNA intersect lengths
+   by the sum of the peaks lengths, and writes them to a "peaks_summary.txt" file in the same folder. The last
+   line of the txt file calculates the harmonic mean of the intersect ratios for all chromosomes.
 
 9. Aggregate intersect summaries by running the following command:
 
