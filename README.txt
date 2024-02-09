@@ -158,4 +158,5 @@
     (./output/intersect_summaries.tsv) and random intersect summaries
     (./output/random_intersect_summaries.tsv) are passed in as input. We also pass a filter
     value, such that rows in intersect_summaries.tsv whose harmonic mean is less than the
-    filter value are ignored. The  bar plot is saved as an .png file.
+    filter value are ignored. The  bar plot is saved as an .png file. A more advanced plot
+    can be created by using the R scripts in Jacob Sieg's repo at https://github.com/JPSieg/beebar
